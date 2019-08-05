@@ -134,7 +134,7 @@
         android:onClick="gotoLogin"
         android:text="@string/signin"
         android:textColor="#FCF5F5"
-        android:textSize="24dp"
+        android:textSize="24sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
