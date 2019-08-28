@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/backg">
+    android:background="@drawable/backg"
+    android:theme="@style/AppTheme.NoActionBar">
 
     <View
         android:id="@+id/register_bgcard"
@@ -34,7 +35,7 @@
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textPersonName"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         android:textColorHint="#03A9F4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +56,7 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         android:textColorHint="#03A9F4"
         app:layout_constraintBottom_toTopOf="@+id/main_sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +121,7 @@
         android:layout_marginBottom="8dp"
         android:gravity="end|top"
         android:text="@string/forgot_pass"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -129,15 +130,6 @@
         app:layout_constraintTop_toBottomOf="@+id/main_user_name"
         app:layout_constraintVertical_bias="0.22" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="173dp"
-        android:layout_height="173dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/copygram2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

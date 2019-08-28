@@ -33,7 +33,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/password"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         android:textColorHint="#03A9F4"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+         />
 
     <EditText
         android:id="@+id/register_email"
@@ -53,7 +53,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/email"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         android:textColorHint="#03A9F4"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
         android:ems="10"
         android:hint="@string/User"
         android:inputType="textPersonName"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         android:textColorHint="#03A9F4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
         android:hint="@string/Mobile"
         android:textColorHint="#03A9F4"
         android:inputType="phone"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"

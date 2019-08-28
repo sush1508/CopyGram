@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,7 +37,7 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
         //First page to display after launching app(when navigation drawer is not used)
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
-            navigationView.setCheckedItem(R.id.drawer_upload);
+            navigationView.setCheckedItem(R.id.nav_upload);
         }
     }
 
@@ -44,20 +45,22 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         switch (menuItem.getItemId()) {
-            case R.id.drawer_upload:
+            case R.id.nav_upload:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
                 break;
-            case R.id.drawer_profile:
+            case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile_Page()).commit();
                 break;
-            case R.id.drawer_payment:
+            case R.id.nav_payment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Payment_Page()).commit();
                 break;
-            case R.id.drawer_contact:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Contact_Page()).commit();
+            case R.id.nav_contact:
+                Toast.makeText(this,"Contact",Toast.LENGTH_SHORT).show();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Contact_Page()).commit();
                 break;
-            case R.id.drawer_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new About_Page()).commit();
+            case R.id.nav_about:
+                Toast.makeText(this,"About",Toast.LENGTH_SHORT).show();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new About_Page()).commit();
                 break;
         }
 
@@ -72,5 +75,6 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
         } else {
             super.onBackPressed();
         }
+        super.onBackPressed();
     }
 }

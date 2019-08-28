@@ -5,30 +5,30 @@
     tools:showIn="navigation_view">
 
 
-        <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
-            <item
-                android:id="@+id/drawer_profile"
-                android:icon="@drawable/ic_account_circle"
-                android:title="@string/Profile" />
-            <item
-                android:id="@+id/drawer_upload"
-                android:icon="@drawable/ic_upload_icon"
-                android:title="@string/upload" />
-            <item
-                android:id="@+id/drawer_payment"
-                android:icon="@drawable/ic_payment"
-                android:title="@string/Payment"/>
-        </group>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_circle"
+            android:title="@string/Profile" />
+        <item
+            android:id="@+id/nav_upload"
+            android:icon="@drawable/ic_upload_icon"
+            android:title="@string/upload" />
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_payment"
+            android:title="@string/Payment" />
+    </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/drawer_contact"
+                android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_phone"
                 android:title="Contact" />
             <item
-                android:id="@+id/drawer_about"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_about"
                 android:title="About" />
         </menu>

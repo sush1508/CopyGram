@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -28,17 +33,22 @@ import java.util.Map;
 
 public class Register_page extends AppCompatActivity {
 
-    private EditText username_id,user_mobile_id,user_email_id,user_pass_id;
+    private EditText username_id, user_mobile_id, user_email_id, user_pass_id;
     private Button submit_button;
     private TextView login;
-    private String userName,mobile,email,password;
+    private String userName, mobile, email, password;
+    private static final String KEY_EMPTY = "";
 
     ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_page);
+        //fullscreen mode
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        setContentView(R.layout.activity_register_page);
 
         username_id = findViewById(R.id.register_username);
         user_mobile_id = findViewById(R.id.register_mobile_no);
@@ -52,7 +62,7 @@ public class Register_page extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Register_page.this,MainActivity.class);
+                Intent i = new Intent(Register_page.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -61,73 +71,126 @@ public class Register_page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(view == submit_button){
+                if (view == submit_button) {
+                   if(haveNetwork())
                     registerUser();
+                    else if (!haveNetwork()){
+                        Toast.makeText(Register_page.this,"No network",Toast.LENGTH_LONG).show();
+                    }
                 }
-
             }
         });
 
     }
 
     private void registerUser() {
+        if (validateInputs()) {
+            userName = username_id.getText().toString().trim();
+            mobile = user_mobile_id.getText().toString().trim();
+            email = user_email_id.getText().toString().trim();
+            password = user_pass_id.getText().toString().trim();
+            dialog.setMessage("Registering the user...");
+            dialog.show();
 
-        userName = username_id.getText().toString();
-        mobile = user_mobile_id.getText().toString();
-        email = user_email_id.getText().toString();
-        password = user_pass_id.getText().toString();
-
-
-        dialog.setMessage("Registering the user...");
-        dialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.REGISTER_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                dialog.dismiss();
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-                    System.out.println(jsonObject.getString("message"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+            JSONObject request = new JSONObject();
+            try {
+                //Populate the request parameters
+                request.put("username", userName);
+                request.put("email", email);
+                request.put("password",password);
+                request.put("mobile",mobile);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        dialog.hide();
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parameters = new HashMap<>();
-                parameters.put("username",userName);
-                parameters.put("password",password);
-                parameters.put("email",email);
 
-                parameters.put("mobile",mobile);
-                return parameters;
-            }
-        };
+            JsonObjectRequest stringRequest = new JsonObjectRequest
+                    (Request.Method.POST, Constants.REGISTER_URL, request, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            dialog.dismiss();
+                            try {
+                                if (response.getInt("status") == 1) {
+                                    Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();;
+                                    Intent i = new Intent(Register_page.this,MainActivity.class);
+                                    startActivity(i);
 
-        RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+                                } else {
+                                    Toast.makeText(getApplicationContext(),
+                                            response.getString("message"), Toast.LENGTH_SHORT).show();
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            dialog.dismiss();
+
+                            //Display error message whenever an error occurs
+                            Toast.makeText(getApplicationContext(),
+                                    error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            RequestQueue requestQueue;
+            requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        }
+
     }
 
 
-
-
-    public void gotoLogin(View view)
-    {
-        Intent intent = new Intent(Register_page.this,MainActivity.class);
+    public void gotoLogin(View view) {
+        Intent intent = new Intent(Register_page.this, MainActivity.class);
         startActivity(intent);
     }
 
 
+    public boolean haveNetwork() {
+
+        boolean have_wifi = false;
+        boolean have_mobiledata = false;
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
+
+        for (NetworkInfo info : networkInfos) {
+            if (info.getTypeName().equalsIgnoreCase("WIFI"))
+                if (info.isConnected())
+                    have_wifi = true;
+            if (info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (info.isConnected())
+                    have_mobiledata = true;
+
+        }
+        return have_mobiledata | have_wifi;
+    }
+
+    private boolean validateInputs() {
+        if (KEY_EMPTY.equals(userName)) {
+            username_id.setError("Username cannot be empty");
+            username_id.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(password)) {
+            user_pass_id.setError("Password cannot be empty");
+            user_pass_id.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(email)) {
+            user_email_id.setError("Email cannot be empty");
+            user_email_id.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(mobile)) {
+            user_mobile_id.setError("Mobile no. cannot be empty");
+            user_mobile_id.requestFocus();
+            return false;
+        }
+        return true;
+    }
 }
