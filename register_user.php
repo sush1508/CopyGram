@@ -22,7 +22,7 @@ if (!$conn )
 }
 else
 {
-		$query = "INSERT INTO registration VALUES ('$user_name','$user_email','$user_password','$user_password')";		
+		$query = "INSERT INTO registration VALUES ('$user_name','$user_email','$user_password','$user_mobile')";		
 		$result = mysqli_query($conn,$query);
 		
 		
