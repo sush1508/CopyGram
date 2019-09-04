@@ -3,7 +3,6 @@ package com.example.xeroxapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +20,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
-import static android.accounts.AccountManager.KEY_PASSWORD;
 
 public class MainActivity extends AppCompatActivity {
     private EditText email_id, pass_id;
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setViews() {
-        email_id = findViewById(R.id.main_user_name);
+        email_id = findViewById(R.id.main_user_email);
         Email = email_id.getText().toString().trim();
 
         pass_id = findViewById(R.id.main_password);
@@ -140,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 } else {
                                     Toast.makeText(getApplicationContext(),
-                                            response.getString(KEY_MESSAGE), Toast.LENGTH_SHORT).show();
+                                            response.getString("message"), Toast.LENGTH_SHORT).show();
 
                                 }
                             } catch (JSONException e) {

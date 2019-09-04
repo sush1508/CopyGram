@@ -110,7 +110,7 @@ public class Register_page extends AppCompatActivity {
                             dialog.dismiss();
                             try {
                                 if (response.getInt("status") == 1) {
-                                    Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();;
+                                    Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();
                                     Intent i = new Intent(Register_page.this,MainActivity.class);
                                     startActivity(i);
 
