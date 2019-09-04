@@ -1,7 +1,7 @@
 package com.example.xeroxapp;
 
  public class Constants {
-    private static final String ROOT_URL = " http://192.168.56.1/xeroxapp/";
+    private static final String ROOT_URL = " http://192.168.0.101/xeroxapp/";
 
     public static final String REGISTER_URL = ROOT_URL+"register_user.php";
 
