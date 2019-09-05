@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (response.getInt(KEY_STATUS) == 1) {
                                     //session.loginUser(Email, response.getString(KEY_FULL_NAME));
                                     Intent i = new Intent(MainActivity.this,Dashboard_page.class);
+                                    i.putExtra("EMAIL",Email);
                                     startActivity(i);
 
                                 } else {

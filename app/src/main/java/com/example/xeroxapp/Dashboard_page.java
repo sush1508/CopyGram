@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import com.google.android.material.navigation.NavigationView;
 public class Dashboard_page extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
+    public String user_email;
+    Intent in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,12 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
             navigationView.setCheckedItem(R.id.nav_upload);
         }
+
+        Intent intent = getIntent();
+        user_email=intent.getStringExtra("EMAIL");
+        Toast.makeText(Dashboard_page.this,"Welcome:"+user_email,Toast.LENGTH_LONG).show();
+
+
     }
 
     @Override
@@ -47,6 +56,9 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.nav_upload:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
+                in = new Intent(Dashboard_page.this,samplepage.class);
+                in.putExtra("EMAIL",user_email);
+                startActivity(in);
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile_Page()).commit();
