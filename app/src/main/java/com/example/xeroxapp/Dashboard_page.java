@@ -45,7 +45,7 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
 
         Intent intent = getIntent();
         user_email=intent.getStringExtra("EMAIL");
-        Toast.makeText(Dashboard_page.this,"Welcome:"+user_email,Toast.LENGTH_LONG).show();
+        Toast.makeText(Dashboard_page.this,"Welcome:"+user_email,Toast.LENGTH_SHORT).show();
 
 
     }
@@ -56,9 +56,9 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.nav_upload:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
-                in = new Intent(Dashboard_page.this,samplepage.class);
+                /*in = new Intent(Dashboard_page.this,Upload_Page.class);
                 in.putExtra("EMAIL",user_email);
-                startActivity(in);
+                startActivity(in);*/
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile_Page()).commit();

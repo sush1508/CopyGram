@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="450dp">
+
+
+    <TextView
+        android:id="@+id/tvtitle"
+        android:layout_width="399dp"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="File in the file details"
+        android:textColor="#E91E63" />
+
+    <RadioGroup
+        android:id="@+id/radiogrp1"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="136dp">
+
+        <RadioButton
+            android:id="@+id/radio_onesided"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="One sided" />
+
+        <RadioButton
+            android:id="@+id/radio_backtoback"
+            android:layout_width="143dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:text="Backtoback" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radiogrp2"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="32dp">
+
+        <RadioButton
+            android:id="@+id/radio_colorblack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Black and white" />
+
+        <RadioButton
+            android:id="@+id/radio_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Color" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_copies"
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="226dp"
+        android:layout_marginEnd="113dp"
+        android:hint="No. of copies"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/et_pages"
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="297dp"
+        android:hint="No. of pages?"
+        android:inputType="textPersonName" />
+
+</RelativeLayout>

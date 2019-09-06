@@ -43,8 +43,6 @@ public class Upload_Page extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         upload_button= view.findViewById(R.id.upload_button);
-        tvupload = view.findViewById(R.id.uploadfile);
-        tvfetchinfo = view.findViewById(R.id.fetchfileinfo);
 
         Intent i = getActivity().getIntent();
         email=i.getStringExtra("EMAIL");
@@ -52,27 +50,26 @@ public class Upload_Page extends Fragment {
         upload_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"UPLOAD CLICKED",Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getActivity(),samplepage.class);
+                Intent i = new Intent(getActivity(),Documents.class);
                 i.putExtra("EMAIL",email);
                 startActivity(i);
             }
         });
 
-        tvupload.setOnClickListener(new View.OnClickListener() {
+       /* tvupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
 
-                Intent intent = new Intent(getActivity(),samplepage.class);
+                Intent intent = new Intent(getActivity(),Documents.class);
                 intent.putExtra("EMAIL",email);
                 System.out.println(email);
                 startActivity(intent);
             }
-        });
+        });*/
 
-        tvfetchinfo.setOnClickListener(new View.OnClickListener() {
+        /*tvfetchinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println("Fetch clickeddddddddddddddddddddd \n");
@@ -80,10 +77,10 @@ public class Upload_Page extends Fragment {
 
             }
         });
-
+*/
     }
 
-    public void fetchFileInfo(){
+   /* public void fetchFileInfo(){
 
 
         String jsonstring  = "[{'User_email':'"+email+"'}]";
@@ -138,7 +135,7 @@ public class Upload_Page extends Fragment {
 
         RequestQueue requestQueue;
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonArrayRequest);*/
 /*
 
         final JsonObjectRequest jsonrequest = new JsonObjectRequest(Request.Method.POST, Constants.FETCH_URL, request, new Response.Listener<JSONObject>() {
@@ -182,8 +179,8 @@ public class Upload_Page extends Fragment {
         requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jsonrequest);
 */
-    }
-
+    //}
+/*
     private void showJSON(String response) {
         String user_name = "";
         String filename = "";
@@ -202,5 +199,5 @@ public class Upload_Page extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

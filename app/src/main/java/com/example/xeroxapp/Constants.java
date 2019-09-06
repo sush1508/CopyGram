@@ -10,4 +10,6 @@ package com.example.xeroxapp;
      public static final String UPLOAD_URL = ROOT_URL+"save_file.php";
 
      public static final String FETCH_URL = ROOT_URL+"fetchfile.php";
+
+     public static final String UPDATE_FILE_DETAILS_URL = ROOT_URL+"update_fileinfo.php";
 }

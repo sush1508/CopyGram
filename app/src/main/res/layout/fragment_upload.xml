@@ -12,56 +12,9 @@
         android:layout_height="43dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="432dp"
-        android:text="@string/Upload" />
-
-    <TextView
-        android:id="@+id/uploadfile"
-        android:layout_width="260dp"
-        android:layout_height="38dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="184dp"
-        android:text="Upload files"
-        android:textColor="@color/cardview_light_background"
-        android:textSize="25dp" />
-
-    <Button
-        android:id="@+id/attach_button"
-        android:layout_width="331dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="331dp"
-        android:text="show my files" />
-
-    <TextView
-        android:id="@+id/abc"
-        android:layout_width="144dp"
-        android:layout_height="78dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="135dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/fetchfileinfo"
-        android:layout_width="146dp"
-        android:layout_height="62dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="248dp"
-        android:layout_marginBottom="293dp"
-        android:text="Fetch file details"
-        android:textColor="#F2F1EAEA" />
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="470dp"
+        android:text="@string/Upload" />
 
 </RelativeLayout>
