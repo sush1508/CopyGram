@@ -9,7 +9,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass,$db_name);
-	//mysqli_select_db($conn,"pccoerelearning");
+	
 $user_email = $input['email'];
 $user_password = $input['password'];
 
