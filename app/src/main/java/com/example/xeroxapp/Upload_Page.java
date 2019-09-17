@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 public class Upload_Page extends Fragment {
     Button upload_button;
-    TextView tvupload,tvfetchinfo;
+    TextView tvupload,instruction;
     String f_useremail,f_filename,f_filetype;
     String email,responsemsg;
     @Nullable
@@ -55,6 +55,16 @@ public class Upload_Page extends Fragment {
                 startActivity(i);
             }
         });
+
+        instruction = view.findViewById(R.id.tv_instructions);
+        instruction.setText("Instructions:\n" +
+                "Follow the below steps:\n\n" +
+                "1)Click on the upload button below.\n\n" +
+                "2)On the following page click on the choose file button and select file to upload.\n\n" +
+                "(supported file formats are : pdf,ppt,pptx,doc,docx,xls,txt)\n" +
+                "3)After uploading click on the my files button to see a list of your files.\n\n" +
+                "4)Click on each file name and fill in all the details(mandatory)\n\n" +
+                "5)Proceed for payment using paytm.");
 
        /* tvupload.setOnClickListener(new View.OnClickListener() {
             @Override

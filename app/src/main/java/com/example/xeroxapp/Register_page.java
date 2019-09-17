@@ -84,65 +84,75 @@ public class Register_page extends AppCompatActivity {
     }
 
     private void registerUser() {
-        if (validateInputs()) {
+
             userName = username_id.getText().toString().trim();
             mobile = user_mobile_id.getText().toString().trim();
             email = user_email_id.getText().toString().trim();
             password = user_pass_id.getText().toString().trim();
-            dialog.setMessage("Registering the user...");
-            dialog.show();
 
-            JSONObject request = new JSONObject();
-            try {
-                //Populate the request parameters
-                request.put("username", userName);
-                request.put("email", email);
-                request.put("password",password);
-                request.put("mobile",mobile);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            if(validateInputs()){
 
-            JsonObjectRequest stringRequest = new JsonObjectRequest
-                    (Request.Method.POST, Constants.REGISTER_URL, request, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            dialog.dismiss();
-                            try {
-                                if (response.getInt("status") == 1) {
-                                    Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(Register_page.this,MainActivity.class);
-                                    startActivity(i);
+                if(checkInputs()){
 
-                                } else {
+                    dialog.setMessage("Registering the user...");
+                    dialog.show();
+
+                    JSONObject request = new JSONObject();
+                    try {
+                        //Populate the request parameters
+                        request.put("username", userName);
+                        request.put("email", email);
+                        request.put("password",password);
+                        request.put("mobile",mobile);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    JsonObjectRequest stringRequest = new JsonObjectRequest
+                            (Request.Method.POST, Constants.REGISTER_URL, request, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    dialog.dismiss();
+                                    try {
+                                        if (response.getInt("status") == 1) {
+                                            Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(Register_page.this,MainActivity.class);
+                                            startActivity(i);
+
+                                        } else {
+                                            Toast.makeText(getApplicationContext(),
+                                                    response.getString("message"), Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    dialog.dismiss();
+
+                                    //Display error message whenever an error occurs
                                     Toast.makeText(getApplicationContext(),
-                                            response.getString("message"), Toast.LENGTH_SHORT).show();
+                                            error.getMessage(), Toast.LENGTH_SHORT).show();
 
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            dialog.dismiss();
-
-                            //Display error message whenever an error occurs
-                            Toast.makeText(getApplicationContext(),
-                                    error.getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
+                            });
 
 
-            RequestQueue requestQueue;
-            requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
+                    RequestQueue requestQueue;
+                    requestQueue = Volley.newRequestQueue(this);
+                    requestQueue.add(stringRequest);
+                }
+
+            }
+
+
         }
 
-    }
+
 
 
     public void gotoLogin(View view) {
@@ -191,6 +201,28 @@ public class Register_page extends AppCompatActivity {
             user_mobile_id.requestFocus();
             return false;
         }
+
         return true;
+    }
+
+    boolean checkInputs()
+    {
+        if(mobile.length() != 10){
+            user_mobile_id.setError("Enter valid mobile number");
+            user_mobile_id.requestFocus();
+            return false;
+        }
+        if(email.length()<4)
+        {
+            user_email_id.setError("Email invalid");
+            user_email_id.requestFocus();
+            return false;
+        }
+        if(password.length()<5){
+            user_pass_id.setError("Password too short");
+            user_pass_id.requestFocus();
+            return false;
+        }
+    return true;
     }
 }

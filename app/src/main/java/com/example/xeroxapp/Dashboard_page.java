@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
 
     private DrawerLayout drawer;
     public String user_email;
-    Intent in;
+    int file_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,40 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
 
         Intent intent = getIntent();
         user_email=intent.getStringExtra("EMAIL");
-        Toast.makeText(Dashboard_page.this,"Welcome:"+user_email,Toast.LENGTH_SHORT).show();
 
+
+        //go to payment fragment if user has clicked proceed button in Documents activity
+        int amt = 0;
+        if(intent.getStringExtra("flag")!= null){
+            String flag1=intent.getStringExtra(("flag"));
+            if(flag1.equals("1"))
+            {
+                intent = getIntent();
+                amt = intent.getIntExtra("orderAmount",0);
+                file_count = intent.getIntExtra("doc_count",0);
+                System.out.println("Dashboard---------------------->>>>>>>.  "+amt);
+                Bundle b = new Bundle();
+                b.putInt("OrderAmt",amt);
+                b.putString("email",intent.getStringExtra("email"));
+                b.putInt("file_count",file_count);
+                Payment_Page payment_page = new Payment_Page();
+                payment_page.setArguments(b);
+                goToPayment(payment_page);
+                //navigationView.setCheckedItem(R.id.nav_payment);
+            }
+        }
+       /*
+*/
+    }
+
+    public void goToPayment(Payment_Page paymentPage)
+    {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction =    fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, paymentPage);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
     }
 
@@ -56,23 +90,26 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.nav_upload:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
-                /*in = new Intent(Dashboard_page.this,Upload_Page.class);
-                in.putExtra("EMAIL",user_email);
-                startActivity(in);*/
+
                 break;
-            case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile_Page()).commit();
+            case R.id.nav_myorders :
+                System.out.println("Email of user---------------- > "+user_email);
+                Bundle  data = new Bundle();
+                data.putString("email",user_email);
+                MyOrders_Page myOrders_page = new MyOrders_Page();
+                myOrders_page.setArguments(data);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,myOrders_page).commit();
                 break;
-            case R.id.nav_payment:
+           /* case R.id.nav_payment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Payment_Page()).commit();
-                break;
+                break;*/
             case R.id.nav_contact:
-                Toast.makeText(this,"Contact",Toast.LENGTH_SHORT).show();
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Contact_Page()).commit();
+                //Toast.makeText(this,"Contact",Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Contact_Page()).commit();
                 break;
             case R.id.nav_about:
-                Toast.makeText(this,"About",Toast.LENGTH_SHORT).show();
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new About_Page()).commit();
+                //Toast.makeText(this,"About",Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new About_Page()).commit();
                 break;
         }
 

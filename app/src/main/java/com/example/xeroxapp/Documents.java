@@ -1,6 +1,8 @@
 package com.example.xeroxapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.Manifest;
@@ -16,10 +18,13 @@ import androidx.annotation.Nullable;
 //import android.support.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 //import android.support.v4.app.ActivityCompat;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Looper;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +40,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
@@ -56,30 +62,32 @@ import okhttp3.Response;
 
 public class Documents extends AppCompatActivity implements FileInfoDialog.FileInfoDialogListener {
 
-    Button choose_btn,file_btn;
-    String u_email;
-
-    Button upload_button;
-    TextView tvupload,tvfetchinfo;
+    Button file_btn,payment_btn;
+    FloatingActionButton choose_btn;
+    static String u_email;
     String f_useremail,f_filename,f_filetype;
-    String email,responsemsg;
+    String responsemsg;
     String selectedFilename;
     Vector v;
     ListView lst;
-    String pcolor,psides,ppages,pcopies,docname;
+    String pcolor,psides,ppages,pcopies;
+    public static final int COLOR_PRINT_1=5,BLACK_PRINT_1=1;
+    int totalAmount,cnt;
+    int Itemcount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documents);
-
+        totalAmount = 0;
+        Itemcount = 0;
+        cnt = 0;
         choose_btn=findViewById(R.id.pickbutton);
         file_btn = findViewById(R.id.myfiles_button);
         lst = findViewById(R.id.listView);
         v = new Vector();
         Intent e = getIntent();
         u_email = e.getStringExtra("EMAIL");
-       // Toast.makeText(Documents.this,"Welcome:"+u_email,Toast.LENGTH_LONG).show();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -88,12 +96,20 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
             }
         }
 
-
-        enable_button();
-
-    }
-
-    private void enable_button() {
+        payment_btn = findViewById(R.id.doc_payment_button);
+        payment_btn.setEnabled(false);
+        payment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(Documents.this,Dashboard_page.class);
+                intent1.putExtra("flag","1");
+                intent1.putExtra("orderAmount",totalAmount);
+                intent1.putExtra("doc_count",Itemcount);
+                intent1.putExtra("email",u_email);
+                System.out.println("Costtttttttttttttttttttttttttttttttt ======= >      "+totalAmount);
+                startActivity(intent1);
+            }
+        });
 
         choose_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +129,13 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                 //v.clear();
             }
         });
+
+    }
+
+    private void enable_button() {
+        payment_btn.setBackground(getDrawable(R.drawable.buttonshape));
+        payment_btn.setEnabled(true);
+
     }
 
     @Override
@@ -162,6 +185,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                         System.out.println("Content typpppppeeeeeeeeeeee :"+content_type);
 
                         String filename = file_path.substring(file_path.lastIndexOf("/")+1);
+                        filename = u_email.substring(0,4)+"_"+filename;
                         System.out.println("File name ::::::::::"+filename);
                         OkHttpClient client = new OkHttpClient();
                         RequestBody file_body;
@@ -191,6 +215,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                         else
                         {
                             System.out.println("Doneeeeeeeeeeeeeeeeeeeeeeeee");
+
                         }
 
                         progress.dismiss();
@@ -199,13 +224,10 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 }
             });
 
             t.start();
-
         }
     }
 
@@ -264,6 +286,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                 removeDuplicates(v);
 
 
+
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override
@@ -276,35 +299,26 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
         requestQueue = Volley.newRequestQueue(Documents.this);
         requestQueue.add(jsonArrayRequest);
 
-        ArrayAdapter<Vector> arrayAdapter = new ArrayAdapter<Vector>(this,android.R.layout.simple_list_item_1,v);
-        lst.setAdapter(arrayAdapter);
+        final MyCustomListAdapter adapter = new MyCustomListAdapter(this,R.layout.my_list_item,v);
+        lst.setAdapter(adapter);
+        cnt=lst.getAdapter().getCount();
 
-
-
-        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter.setmyOnClickListener(new MyCustomListAdapter.myOnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView tv=(TextView) view;
-                Toast.makeText(Documents.this,tv.getText(),Toast.LENGTH_SHORT).show();
-                selectedFilename =tv.getText().toString();
-                fillDocumentDetails(selectedFilename);
+            public void myOnClick(int position, String itemname) {
+                fillDocumentDetails(itemname);
 
-
-                //SendFileDatatoDB(selectedFilename);
             }
         });
-
     }
 
-    void fillDocumentDetails(String fname){
-
+    public void fillDocumentDetails(String selectedFilename){
         FileInfoDialog fileInfoDialog = new FileInfoDialog();
         Bundle data  =new Bundle();
         data.putString("email",u_email);
         data.putString("filename",selectedFilename);
         fileInfoDialog.setArguments(data);
         fileInfoDialog.show(getSupportFragmentManager(),"File Details");
-
     }
 
     public static void removeDuplicates(Vector v)
@@ -325,49 +339,40 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
 
     @Override
     public void getTexts(String copies, String pages, String sides, String color) {
-        System.out.println("(  " + copies + "  ||  " + pages + "  ||  " + sides + "  ||  " + color + "  )");
+        System.out.println("((  " + copies + "  ||  " + pages + "  ||  " + sides + "  ||  " + color + "  ))");
         pcopies=copies;
         ppages=pages;
         psides=sides;
         pcolor=color;
-
-
-    }
-
-
-    public  void SendFileDatatoDB(String docname){
-        JSONObject request = new JSONObject();
-        try {
-            request.put("usermail",u_email);
-            request.put("filename",docname);
-            request.put("copies",pcopies);
-            request.put("pages",ppages);
-            request.put("sides",psides);
-            request.put("color",pcolor);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(updateAmount(pcolor,pcopies,ppages,psides)){
+            Itemcount++;
         }
-
-        JsonObjectRequest objrequest = new JsonObjectRequest(com.android.volley.Request.Method.POST,Constants.UPDATE_FILE_DETAILS_URL,request,new com.android.volley.Response.Listener<JSONObject>(){
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    System.out.println(response.getString("message"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Errorrrrrrrrrrrrrr : "+error.getMessage());
-            }
-        });
-
-        RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(objrequest);
+        System.out.println("Count of list items============================> "+cnt+"  "+Itemcount);
+        if(Itemcount == cnt)
+        {
+            enable_button();
+        }
     }
+
+    boolean updateAmount(String color,String copiesCount,String pageCount,String sides){
+        int copyC,pageC;
+        copyC = Integer.parseInt(copiesCount);
+        pageC = Integer.parseInt(pageCount);
+        switch(color)
+        {
+            case "Color":
+                totalAmount +=(copyC*pageC*COLOR_PRINT_1);
+                /*System.out.println("...........CopyC=> "+copyC+" ..........pageC=> "+pageC+"................" );
+                System.out.println("Color amount ::::::::::::::::::: >>>>>>>>>>>>> "+totalAmount);*/
+                break;
+            case "Black and white":
+                totalAmount +=(copyC*pageC*BLACK_PRINT_1);
+                break;
+            default:
+        }
+        System.out.println("Total amount=====================>"+totalAmount);
+        payment_btn.setText("Pay Rs."+Integer.toString(totalAmount));
+        return true;
+    }
+
 }

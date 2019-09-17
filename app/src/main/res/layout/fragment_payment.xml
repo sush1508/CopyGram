@@ -2,20 +2,108 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#654">
+    android:background="@color/mycolorGrey">
 
-    <TextView
-        android:layout_width="163dp"
-        android:layout_height="47dp"
+    <Button
+        android:id="@+id/Pay_button"
+        android:layout_width="184dp"
+        android:layout_height="49dp"
+        android:layout_alignStart="@+id/payment_bgcard"
+        android:layout_alignEnd="@+id/payment_bgcard"
+        android:layout_alignBottom="@+id/payment_bgcard"
+        android:layout_marginStart="77dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="41dp"
+        android:background="@drawable/buttonshape"
+        android:text="Pay"
+        android:textColor="@color/cardview_light_background" />
+
+    <View
+        android:id="@+id/payment_bgcard"
+        android:layout_width="335dp"
+        android:layout_height="471dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginTop="271dp"
-        android:layout_marginEnd="137dp"
-        android:layout_marginBottom="285dp"
-        android:gravity="center"
-        android:textColor="@color/cardview_light_background"
-        android:text="Payment page" />
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="78dp"
+        android:alpha="0.8"
+        android:background="@drawable/mycard" />
+
+    <TextView
+        android:id="@+id/tv_amount"
+        android:layout_width="159dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/tv_rs"
+        android:layout_alignStart="@+id/payment_bgcard"
+        android:layout_alignTop="@+id/payment_bgcard"
+        android:layout_alignEnd="@+id/payment_bgcard"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Amount"
+        android:textColor="#FCFAFA" />
+
+    <TextView
+        android:id="@+id/tv_rs"
+        android:layout_width="148dp"
+        android:layout_height="53dp"
+        android:layout_alignStart="@+id/payment_bgcard"
+        android:layout_alignEnd="@+id/payment_bgcard"
+        android:layout_alignBottom="@+id/tv_payto"
+        android:layout_marginStart="93dp"
+        android:layout_marginEnd="94dp"
+        android:layout_marginBottom="74dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Rs."
+        android:textColor="#FCFAFA"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tv_docs"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_above="@+id/Pay_button"
+        android:layout_alignStart="@+id/payment_bgcard"
+        android:layout_alignEnd="@+id/payment_bgcard"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="28dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="No. of documents :"
+        android:textColor="#FCFAFA" />
+
+    <TextView
+        android:id="@+id/tv_pay_email"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_above="@+id/tv_docs"
+        android:layout_alignStart="@+id/payment_bgcard"
+        android:layout_alignEnd="@+id/payment_bgcard"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="22dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="User Email"
+        android:textColor="#FCFAFA" />
+
+    <TextView
+        android:id="@+id/tv_payto"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_above="@+id/tv_pay_email"
+        android:layout_alignStart="@+id/payment_bgcard"
+        android:layout_alignEnd="@+id/payment_bgcard"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="23dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Pay to Tanishka Xerox Center"
+        android:textColor="#FCFAFA" />
+
 </RelativeLayout>

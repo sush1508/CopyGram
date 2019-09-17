@@ -29,6 +29,8 @@ import java.net.URISyntaxException;
 
 public class FileInfoDialog extends AppCompatDialogFragment {
 
+    //public static final int COLOR_PRINT_1=5,BLACK_PRINT_1=1;
+    //static int totalAmount;
     EditText etcopies,etpages;
     TextView textViewtitle;
     RadioButton radio_color,radio_sides;
@@ -39,12 +41,12 @@ public class FileInfoDialog extends AppCompatDialogFragment {
     private FileInfoDialogListener listener;
 
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater  = getActivity().getLayoutInflater();
         final View view = layoutInflater.inflate(R.layout.file_info_layout,null);
-
         etcopies = view.findViewById(R.id.et_copies);
         etpages = view.findViewById(R.id.et_pages);
         textViewtitle = view.findViewById(R.id.tvtitle);
@@ -83,73 +85,45 @@ public class FileInfoDialog extends AppCompatDialogFragment {
 
                         //dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
-                        listener.getTexts(print_copies,print_pages,print_sides,print_color);
-                        if(validateDetails()) {
 
+                        if(validateDetails()) {
+                            listener.getTexts(print_copies,print_pages,print_sides,print_color);
                             System.out.println("(  " + print_color + "  ||  " + print_copies + "  ||  " + print_pages + "  ||  " + print_sides + "  )");
                             System.out.println("Closing dialog");
                                 if(SendFileDetailstoDB()){
                                     Toast.makeText(getContext(),"Details updated",Toast.LENGTH_LONG).show();
+                                   // updateAmount(print_color,print_copies,print_pages,print_sides);
                                 }
                            // dialog.dismiss();
                         }
                         else{
                             System.out.println("Incomplete..............");
                             Toast.makeText(getContext(),"Details couldn't be updated",Toast.LENGTH_LONG).show();
+
                         }
 
 
                     }
                 });
-
-
-        //dialog.show();
-
-
-
-              /*  b_submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int value1 = rg1.getCheckedRadioButtonId();
-                        radio_sides = view.findViewById(value1);
-                        int value2 = rg2.getCheckedRadioButtonId();
-                        radio_color = view.findViewById(value2);
-                        System.out.println("value1=> "+value1+" value2=> "+value2);
-                        print_pages = etpages.getText().toString();
-                        print_copies = etcopies.getText().toString();
-                        print_sides = radio_sides.getText().toString();
-                        print_color = radio_color.getText().toString();
-
-                       // listener.getTexts(print_copies,print_pages,print_sides,print_color);
-
-                        u_email = getArguments().getString("email");
-                        docname = getArguments().getString("filename");
-
-                        System.out.println(u_email+" **************** "+docname);
-                      //  dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                        if(validateDetails()) {
-
-                            System.out.println("(  " + print_color + "  ||  " + print_copies + "  ||  " + print_pages + "  ||  " + print_sides + "  )");
-                            SendFiletoDB();
-                      //      dialog.dismiss();
-
-                        }
-                        else
-                        {
-                            Toast.makeText(view.getContext(),"Fill all the details",Toast.LENGTH_SHORT).show();
-                            System.out.println("...............Fill in the details.....................");
-                        }
-
-                    }
-                });
-*/
-
-//        return dialog;
         return builder.create();
     }
 
-
-
+   /* void updateAmount(String color,String copiesCount,String pageCount,String sides){
+        switch(color)
+        {
+            case "Color":
+                        int copyC,pageC;
+                        copyC = Integer.parseInt(copiesCount);
+                        pageC = Integer.parseInt(pageCount);
+                        totalAmount += totalAmount+(copyC*pageC*COLOR_PRINT_1);
+                        System.out.println("Total amount=====================>"+totalAmount);
+                break;
+            case "Black and white":
+                break;
+            default:
+        }
+    }
+*/
 
 
 

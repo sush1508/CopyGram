@@ -4,46 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Documents">
+    tools:context=".Documents"
+    android:background="@color/mycolorGrey">
 
-    <Button
+   <!-- <Button
         android:id="@+id/pickbutton"
         android:layout_width="177dp"
         android:layout_height="56dp"
         android:text="Choose File"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837" />
+        app:layout_constraintVertical_bias="0.782" />-->
 
     <Button
         android:id="@+id/myfiles_button"
         android:layout_width="118dp"
         android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/buttonshape"
         android:text="My Files"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.722" />
+        app:layout_constraintEnd_toStartOf="@+id/pickbutton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/doc_payment_button" />
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="410dp"
-        android:layout_height="392dp"
-        android:background="#F8F1F3F5"
+        android:layout_width="408dp"
+        android:layout_height="507dp"
+        android:background="@color/mycolorGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"></ListView>
 
+    <Button
+        android:id="@+id/doc_payment_button"
+        android:layout_width="135dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/mybuttonbackgroundselector"
+        android:text="Proceed"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/pickbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="#FF9800"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/doc_payment_button"
+        app:srcCompat="@drawable/ic_floating_action_button_add" />
 
-
-    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
