@@ -60,8 +60,8 @@ public class Checksum extends AppCompatActivity implements PaytmPaymentTransacti
         System.out.println("Customer id =>> "+custid);
         System.out.println("Checksum-Amount((((((((((((---------------->>>>>>>>>> "+transaction_amount);
 
-        mid = "OwNQiu10955496614439";
-       // mid = "rycufK58784621542404";
+        //mid = "MZfxWW12193811341410";
+         mid = "rycufK58784621542404";
         sendUserDetailTOServerdd dl = new sendUserDetailTOServerdd();
         dl.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -72,7 +72,9 @@ public class Checksum extends AppCompatActivity implements PaytmPaymentTransacti
         String amount_to_pay;
         String url =Constants.CHECKSUM_URL;
         String verifyurl = "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp";
+       // String verifyurl = " http://192.168.0.103/xeroxapp/paytm/verifyChecksum.php";
         // "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID"+orderId;
+     //  String verifyurl="https://securegw.paytm.in/theia/api/v1/processTransaction?mid="+mid+"&orderId="+orderId;
         String CHECKSUMHASH ="";
         @Override
         protected void onPreExecute() {
@@ -137,9 +139,7 @@ public class Checksum extends AppCompatActivity implements PaytmPaymentTransacti
     }
     @Override
     public void onTransactionResponse(Bundle bundle) {
-        //  Log.e("checksum ", " respon true " + bundle.toString());
         System.out.println("Chechsum :: response true :: "+bundle.toString());
-        Toast.makeText(this,"Status:"+bundle,Toast.LENGTH_LONG).show();
         displayTransactionDetails(bundle);
     }
     @Override
@@ -159,7 +159,7 @@ public class Checksum extends AppCompatActivity implements PaytmPaymentTransacti
     @Override
     public void onErrorLoadingWebPage(int i, String s, String s1) {
         //  Log.e("checksum ", " error loading pagerespon true "+ s + "  s1 " + s1);
-        Toast.makeText(Checksum.this,"Error loading webpage"+s+" | "+s1,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Checksum.this,"Error loading webpage"+s+" | "+s1,Toast.LENGTH_SHORT).show();
         System.out.println("Error loading web page :: "+s+" ::: s1 :::: "+s1);
     }
     @Override
@@ -190,10 +190,10 @@ public class Checksum extends AppCompatActivity implements PaytmPaymentTransacti
         tv_amount.setText("Rs. "+amount);
         switch(status){
             case "TXN_SUCCESS" : tv_status.setText("Payment Successful!");
-            sendPaymentDetailstoDB(Email,"Done",Integer.toString(transaction_amount),txnid,orderid,doc_cnt);
-            break;
+                sendPaymentDetailstoDB(Email,"Done",Integer.toString(transaction_amount),txnid,orderid,doc_cnt);
+                break;
             case "TXN_FAILURE" : tv_status.setText("Payment Failed");
-            break;
+                break;
             default:tv_status.setText("Payment status");
         }
 

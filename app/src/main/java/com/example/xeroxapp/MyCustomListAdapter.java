@@ -64,7 +64,7 @@ public class MyCustomListAdapter extends ArrayAdapter {
                 System.out.println("List item clicked..........................=>>>>>>>>>>"+tvfilename.getText().toString());
                 documentname = tvfilename.getText().toString();
                 mylistener.myOnClick(position,documentname);
-                filldetails.setImageResource(R.drawable.ic_done_black_24dp);
+                //filldetails.setImageResource(R.drawable.ic_warning);
 
             }
         });

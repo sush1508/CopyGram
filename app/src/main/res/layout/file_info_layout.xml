@@ -1,98 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="450dp">
+    android:layout_height="450dp"
+    android:background="@drawable/background">
 
 
     <TextView
         android:id="@+id/tvtitle"
-        android:layout_width="399dp"
-        android:layout_height="54dp"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="File in the file details"
-        android:textColor="#E91E63" />
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.029" />
 
     <RadioGroup
         android:id="@+id/radiogrp1"
-        android:layout_width="168dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="66dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp">
+        android:layout_marginStart="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_copies"
+        app:layout_constraintEnd_toStartOf="@+id/radiogrp2"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvtitle">
 
         <RadioButton
             android:id="@+id/radio_onesided"
             android:layout_width="142dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:buttonTint="@color/submit_easy_pay"
             android:checked="true"
-            android:text="One sided" />
+            android:text="One sided"
+            android:textColor="@color/cardview_light_background" />
 
         <RadioButton
             android:id="@+id/radio_backtoback"
             android:layout_width="143dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
-            android:text="Backtoback" />
+            android:buttonTint="@color/submit_easy_pay"
+            android:text="Backtoback"
+            android:textColor="@color/cardview_light_background" />
     </RadioGroup>
 
     <RadioGroup
         android:id="@+id/radiogrp2"
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
+        android:layout_width="196dp"
+        android:layout_height="64dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="32dp">
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_copies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radiogrp1"
+        app:layout_constraintTop_toBottomOf="@+id/tvtitle"
+        app:layout_constraintVertical_bias="0.47000003">
 
         <RadioButton
             android:id="@+id/radio_colorblack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/submit_easy_pay"
             android:checked="true"
-            android:text="Black and white" />
+            android:text="Black and white"
+            android:textColor="@color/cardview_light_background" />
 
         <RadioButton
             android:id="@+id/radio_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Color" />
+            android:buttonTint="@color/submit_easy_pay"
+            android:text="Color"
+            android:textColor="@color/cardview_light_background" />
     </RadioGroup>
 
     <EditText
         android:id="@+id/et_copies"
-        android:layout_width="197dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="226dp"
-        android:layout_marginEnd="113dp"
-        android:hint="No. of copies"
-        android:inputType="textPersonName" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:hint="No. of copies?"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/submit_easy_pay"
+        app:layout_constraintBottom_toTopOf="@+id/et_pages"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvtitle"
+        app:layout_constraintVertical_bias="0.748" />
 
     <EditText
         android:id="@+id/et_pages"
-        android:layout_width="197dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
 
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="297dp"
-        android:hint="No. of pages?"
-        android:inputType="textPersonName" />
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:hint="No. of pages per copy?"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/submit_easy_pay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_copies"
+        app:layout_constraintVertical_bias="0.748" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

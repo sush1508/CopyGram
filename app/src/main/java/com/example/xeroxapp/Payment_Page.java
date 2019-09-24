@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ public class Payment_Page extends Fragment {
     Button paybtn;
     int orderamt,doc_count;
     String mail;
-    TextView tvuseremail,tvamount,tvdocs;
+    TextView tvupi,tvamount,tvdocs;
 
     @Nullable
     @Override
@@ -45,20 +46,21 @@ public class Payment_Page extends Fragment {
         System.out.println("Paymentpage.................>>>>>>>>>> "+orderamt);
         paybtn = view.findViewById(R.id.Pay_button);
         tvamount = view.findViewById(R.id.tv_rs);
-        tvuseremail = view.findViewById(R.id.tv_pay_email);
         tvdocs = view.findViewById(R.id.tv_docs);
+        tvupi = view.findViewById(R.id.tv_upi);
 
         tvamount.setText("Rs. "+Integer.toString(orderamt));
-        tvuseremail.setText("User email : "+mail);
+        tvupi.setText("UPI ID : "+Constants.MERCHANT_UPI);
         tvdocs.setText("No. of documents : "+Integer.toString(doc_count));
 
         paybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(),Checksum.class);
-                i.putExtra("Pay_Amount",orderamt);
+                //Intent i = new Intent(getActivity(),Checksum.class);
+                Intent i = new Intent(getActivity(),UPI_Payment.class);
+                i.putExtra("Pay_Amount",Integer.toString(orderamt));
                 i.putExtra("email",mail);
-                i.putExtra("docs_count",Integer.toString(doc_count));
+                i.putExtra("doc_count",Integer.toString(doc_count));
                 System.out.println("Pay button clicked.........");
                 startActivity(i);
             }

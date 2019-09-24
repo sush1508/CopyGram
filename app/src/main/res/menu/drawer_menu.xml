@@ -11,27 +11,18 @@
             android:id="@+id/nav_upload"
             android:icon="@drawable/ic_upload_icon"
             android:title="@string/upload" />
-        <!--<item
-            android:id="@+id/nav_payment"
-            android:icon="@drawable/ic_payment"
-            android:title="@string/Payment" />-->
         <item
             android:id="@+id/nav_myorders"
             android:icon="@drawable/myorder"
             android:title="My Orders" />
-    </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_phone"
-                android:title="Contact" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_about"
-                android:title="About" />
-        </menu>
-    </item>
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_phone"
+            android:title="Contact" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="About" />
+   </group>
 
 </menu>

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validateInputs() {
         if (KEY_EMPTY.equals(Email)) {
-            email_id.setError("Username cannot be empty");
+            email_id.setError("Email cannot be empty");
             email_id.requestFocus();
             return false;
         }
@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                                     Intent i = new Intent(MainActivity.this,Dashboard_page.class);
                                     i.putExtra("EMAIL",Email);
                                     startActivity(i);
+                                   // overridePendingTransition(R.anim.anim_fadein,R.anim.anim_fadeout);
 
                                 } else {
                                     Toast.makeText(getApplicationContext(),
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
                             //Display error message whenever an error occurs
                             Toast.makeText(getApplicationContext(),
-                                    error.getMessage(), Toast.LENGTH_SHORT).show();
+                                    "Error connecting", Toast.LENGTH_SHORT).show();
 
                         }
                     });

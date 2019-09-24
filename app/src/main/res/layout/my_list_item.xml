@@ -13,8 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="277dp"
         android:layout_marginTop="5dp"
-        android:tint="#F7DF0808"
-        app:srcCompat="@drawable/ic_about" />
+        android:tint="#F7DF0808"/>
+        <!--app:srcCompat="@drawable/ic_about" />-->
 
     <ImageView
         android:id="@+id/doc_img"
@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="1dp"
-        app:srcCompat="@drawable/ic_doc" />
+        app:srcCompat="@drawable/ic_doc"/>
 
     <TextView
         android:id="@+id/docname"

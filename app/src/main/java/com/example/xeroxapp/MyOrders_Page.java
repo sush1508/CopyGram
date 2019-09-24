@@ -97,12 +97,12 @@ public class MyOrders_Page extends Fragment {
                                                         String txnId = obj.getString("txn_Id");
                                                         String docs_count = obj.getString("noofdocs");
                                                         String order=
-                                                            "User email : "+mail+
-                                                            "\n\nOrder Id :"+orderId+
-                                                            "\n\nTransaction Id :"+txnId+
-                                                            "\n\nDate :"+orderDate+
-                                                            "\n\nNo. of documents :"+docs_count+
-                                                            "\n\nOrder status :"+orderStatus+"\n";
+                                                            "\n User email : "+mail+
+                                                            "\n\n Order Id :"+orderId+
+                                                            "\n\n Transaction Id :"+txnId+
+                                                            "\n\n Date :"+orderDate+
+                                                            "\n\n No. of documents :"+docs_count+
+                                                            "\n\n Order status :"+orderStatus+"\n";
                                                         v.add(order);
                                                         System.out.println("----> "+v);
                                                         showOrderDetails(v);

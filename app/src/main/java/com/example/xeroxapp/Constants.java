@@ -1,7 +1,7 @@
 package com.example.xeroxapp;
 
  public class Constants {
-    private static final String ROOT_URL = " http://192.168.137.8/xeroxapp/";
+    private static final String ROOT_URL = " http://192.168.0.103/xeroxapp/";
 
     public static final String REGISTER_URL = ROOT_URL+"register_user.php";
 
@@ -20,5 +20,7 @@ package com.example.xeroxapp;
      public static final String FETCH_ORDER_URL = ROOT_URL+"fetchOrder.php";
 
      public  static final String DELETE_FILE_URL = ROOT_URL+"deleteFile.php";
+
+     public static final String MERCHANT_UPI = "vibrus@sbi";
 
 }

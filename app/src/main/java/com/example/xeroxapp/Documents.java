@@ -1,8 +1,12 @@
 package com.example.xeroxapp;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.Manifest;
@@ -30,6 +34,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,24 +72,29 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
     static String u_email;
     String f_useremail,f_filename,f_filetype;
     String responsemsg;
-    String selectedFilename;
     Vector v;
     ListView lst;
     String pcolor,psides,ppages,pcopies;
     public static final int COLOR_PRINT_1=5,BLACK_PRINT_1=1;
     int totalAmount,cnt;
     int Itemcount;
+    Dialog d;
+    Button yes,no;
+    ListView lv_doc_list;
+    Intent intent1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documents);
+
         totalAmount = 0;
         Itemcount = 0;
         cnt = 0;
         choose_btn=findViewById(R.id.pickbutton);
         file_btn = findViewById(R.id.myfiles_button);
         lst = findViewById(R.id.listView);
+
         v = new Vector();
         Intent e = getIntent();
         u_email = e.getStringExtra("EMAIL");
@@ -101,13 +111,17 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
         payment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Documents.this,Dashboard_page.class);
+                intent1 = new Intent(Documents.this,Dashboard_page.class);
                 intent1.putExtra("flag","1");
                 intent1.putExtra("orderAmount",totalAmount);
                 intent1.putExtra("doc_count",Itemcount);
                 intent1.putExtra("email",u_email);
-                System.out.println("Costtttttttttttttttttttttttttttttttt ======= >      "+totalAmount);
-                startActivity(intent1);
+                System.out.println("Costtttttttttttttttttttttttttttttttt ======= >"+totalAmount);
+               // if(openConfirmationDialog()){
+                    startActivity(intent1);
+                    finish();
+              //  }
+
             }
         });
 
@@ -131,6 +145,27 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
         });
 
     }
+
+   /* boolean openConfirmationDialog()
+    {
+
+        d = new Dialog(this);
+        d.setContentView(R.layout.file_list_card);
+        yes = d.findViewById(R.id.btn_yes);
+        no = d.findViewById(R.id.btn_no);
+        lv_doc_list = d.findViewById(R.id.id_doc);
+        final ArrayAdapter d_adapter = new ArrayAdapter(d.getContext(),R.layout.my_list_item,v);
+        lv_doc_list.setAdapter(d_adapter);
+
+        yes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+               startActivity(intent1);
+                finish();
+            }
+        });
+        return true;
+    }*/
 
     private void enable_button() {
         payment_btn.setBackground(getDrawable(R.drawable.buttonshape));
@@ -346,6 +381,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
         pcolor=color;
         if(updateAmount(pcolor,pcopies,ppages,psides)){
             Itemcount++;
+
         }
         System.out.println("Count of list items============================> "+cnt+"  "+Itemcount);
         if(Itemcount == cnt)
@@ -375,4 +411,10 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
         return true;
     }
 
+/*
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_fadein,R.anim.anim_fadeout);
+    }*/
 }

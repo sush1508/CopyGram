@@ -53,161 +53,23 @@ public class Upload_Page extends Fragment {
                 Intent i = new Intent(getActivity(),Documents.class);
                 i.putExtra("EMAIL",email);
                 startActivity(i);
+               // getActivity().overridePendingTransition(R.anim.anim_fadein,R.anim.anim_fadeout);
+
             }
         });
 
         instruction = view.findViewById(R.id.tv_instructions);
         instruction.setText("Instructions:\n" +
                 "Follow the below steps:\n\n" +
-                "1)Click on the upload button below.\n\n" +
-                "2)On the following page click on the choose file button and select file to upload.\n\n" +
+                "(*)Click on the upload button below.\n\n" +
+                "(*)On the following page click on the '+' button and select file to upload.\n\n" +
                 "(supported file formats are : pdf,ppt,pptx,doc,docx,xls,txt)\n" +
-                "3)After uploading click on the my files button to see a list of your files.\n\n" +
-                "4)Click on each file name and fill in all the details(mandatory)\n\n" +
-                "5)Proceed for payment using paytm.");
-
-       /* tvupload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                "(*)After uploading click on the my files button to see a list of your files.\n\n" +
+                "(*)Click on each file name and fill in all the details(mandatory)\n\n" +
+                "(*)Proceed for payment using paytm.");
 
 
-
-                Intent intent = new Intent(getActivity(),Documents.class);
-                intent.putExtra("EMAIL",email);
-                System.out.println(email);
-                startActivity(intent);
-            }
-        });*/
-
-        /*tvfetchinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("Fetch clickeddddddddddddddddddddd \n");
-                fetchFileInfo();
-
-            }
-        });
-*/
     }
 
-   /* public void fetchFileInfo(){
 
-
-        String jsonstring  = "[{'User_email':'"+email+"'}]";
-        System.out.println(jsonstring);
-        JSONArray request = null;
-        try {
-            request = new JSONArray(jsonstring);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, Constants.FETCH_URL, request, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-
-
-                    System.out.println("Response length===========>"+response.length());
-                    for(int i=0;i<response.length();i++)
-                    {
-                        try {
-                            JSONObject obj  = response.getJSONObject(i);
-                            responsemsg = obj.getString("message");
-                            if(responsemsg.equals("Documents fetched")){
-                                f_useremail = obj.getString("useremail");
-                                f_filename = obj.getString("filename");
-                                f_filetype = obj.getString("filetype");
-
-                                System.out.println("Messageeeeeeeeeee ===> "+responsemsg);
-                                System.out.println("user====>"+f_useremail+"\nfilename=====>"+f_filename+"\nfiletype===>"+f_filetype);
-
-                            }
-                            else
-                            {
-                                System.out.println("Message : " +responsemsg);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Errrrrrrrrrrrrrrrorrrrrrrrrrrrrrr =>"+error.getMessage());
-            }
-        });
-
-        RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(jsonArrayRequest);*/
-/*
-
-        final JsonObjectRequest jsonrequest = new JsonObjectRequest(Request.Method.POST, Constants.FETCH_URL, request, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try{
-
-                        response.getString("result");
-
-
-
-                       */
-/* if(response.getInt("status") == 1){
-                            System.out.println("Status============== :::: "+response.getInt("status"));
-                            Toast.makeText(getActivity(),response.getString("file_name"),Toast.LENGTH_SHORT).show();
-                            System.out.println("Files fetcheddddd :::: "+response.getString("file_name"));
-                        }
-                        else{
-                            System.out.println("Status============== "+response.getInt("status"));
-                        }
-*//*
-
-
-
-
-                }catch(JSONException e){
-                        e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println("Erorrrrrrrrrr :  "+error.getMessage());
-            }
-        });
-
-        RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(jsonrequest);
-*/
-    //}
-/*
-    private void showJSON(String response) {
-        String user_name = "";
-        String filename = "";
-        String filetype = "";
-        String filelocation = "";
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray("result");
-            for (int x = 0; x < result.length(); x++) {
-                JSONObject fileData = result.getJSONObject(x);
-                user_name = fileData.getString("username");
-                filename = fileData.getString("filename");
-                System.out.println("username====== " + user_name + "  filenameeeeeee ===== " + filename);
-                //here you can store the name and phone_number in an arraylist
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mycolorGrey">
+    android:background="@drawable/background">
 
     <Button
         android:id="@+id/Pay_button"
@@ -65,7 +65,7 @@
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/tv_docs"
+        android:id="@+id/tv_upi"
         android:layout_width="248dp"
         android:layout_height="42dp"
         android:layout_above="@+id/Pay_button"
@@ -75,28 +75,29 @@
         android:layout_marginEnd="43dp"
         android:layout_marginBottom="28dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="No. of documents :"
-        android:textColor="#FCFAFA" />
+        android:textColor="#03A9F4"
+        android:text="UPI ID"
+        android:textColorHint="@color/submit_easy_pay" />
 
     <TextView
-        android:id="@+id/tv_pay_email"
+        android:id="@+id/tv_docs"
         android:layout_width="248dp"
         android:layout_height="42dp"
-        android:layout_above="@+id/tv_docs"
+        android:layout_above="@+id/tv_upi"
         android:layout_alignStart="@+id/payment_bgcard"
         android:layout_alignEnd="@+id/payment_bgcard"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="43dp"
         android:layout_marginBottom="22dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="User Email"
+        android:text="No. of documents"
         android:textColor="#FCFAFA" />
 
     <TextView
         android:id="@+id/tv_payto"
         android:layout_width="248dp"
         android:layout_height="42dp"
-        android:layout_above="@+id/tv_pay_email"
+        android:layout_above="@+id/tv_docs"
         android:layout_alignStart="@+id/payment_bgcard"
         android:layout_alignEnd="@+id/payment_bgcard"
         android:layout_marginStart="45dp"
@@ -105,5 +106,7 @@
         android:gravity="center_horizontal|center_vertical"
         android:text="Pay to Tanishka Xerox Center"
         android:textColor="#FCFAFA" />
+
+
 
 </RelativeLayout>

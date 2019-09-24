@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Checksum"
-    android:background="@color/mycolorGrey">
+    android:background="@drawable/background">
 
     <!--<View
         android:id="@+id/checksum_bgcard"

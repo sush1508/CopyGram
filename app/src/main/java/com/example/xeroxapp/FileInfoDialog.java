@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class FileInfoDialog extends AppCompatDialogFragment {
     String print_sides,print_color,print_pages,print_copies;
     String u_email="",docname="";
     private FileInfoDialogListener listener;
+    ImageView filldetails;
 
 
 
@@ -92,6 +94,8 @@ public class FileInfoDialog extends AppCompatDialogFragment {
                             System.out.println("Closing dialog");
                                 if(SendFileDetailstoDB()){
                                     Toast.makeText(getContext(),"Details updated",Toast.LENGTH_LONG).show();
+
+
                                    // updateAmount(print_color,print_copies,print_pages,print_sides);
                                 }
                            // dialog.dismiss();
