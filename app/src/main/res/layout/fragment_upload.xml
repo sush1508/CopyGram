@@ -1,34 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/upload_button"
-        android:layout_width="190dp"
-        android:layout_height="43dp"
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="470dp"
-        android:background="@drawable/buttonshape"
-        android:textColor="@color/cardview_light_background"
-        android:text="@string/Upload" />
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_instructions"
-        android:layout_width="367dp"
-        android:layout_height="444dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Instructions"
-        android:textColor="#FFC107"
-        android:textSize="18sp" />
 
-</RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rates_card"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="20dp"
+            app:cardBackgroundColor="#18c7fc"
+            app:cardCornerRadius="10dp"
+            android:clickable="true"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="35dp"
+                    android:src="@drawable/rupee" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Printing Rates"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/orders_card"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="25dp"
+            app:cardBackgroundColor="#00c52d"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="35dp"
+                    android:src="@drawable/myorders1" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Orders"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/upload_card"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/linear1"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="138dp"
+        app:cardBackgroundColor="#ff9e01"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="110dp"
+                android:layout_marginTop="35dp"
+                android:src="@drawable/myorders1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Upload"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>

@@ -19,6 +19,7 @@ public class SplashScreen extends AppCompatActivity {
 
 Animation myanim;
 RelativeLayout rl;
+User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,11 @@ RelativeLayout rl;
         setContentView(R.layout.activity_splash_screen);
 
         rl = findViewById(R.id.splash);
+        user=new User(SplashScreen.this);
+        Constants.Email = user.getEmail();
+        MainActivity.Email=user.getEmail();
+        System.out.println("Mainactivity.email------------>>>"+MainActivity.Email);
+        System.out.println("Splash screen email==============>"+Constants.Email);
 
         if(haveNetwork()){
             Logolauncher logolauncher = new Logolauncher();
@@ -52,8 +58,16 @@ RelativeLayout rl;
                 e.printStackTrace();
             }
 
-            Intent intent = new Intent(SplashScreen.this,MainActivity.class);
-            startActivity(intent);
+            if(user.getEmail().equals("No_userdata")) {
+                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else
+            {
+                Intent intent = new Intent(SplashScreen.this, Dashboard_page.class);
+                intent.putExtra("EMAIL",user.getEmail());
+                startActivity(intent);
+            }
             SplashScreen.this.finish();
         }
     }

@@ -30,7 +30,7 @@ public class UPI_Payment extends AppCompatActivity {
 
 String usermail,amount,doc_count;
 JSONObject object;
-TextView pay_status,pay_amount,paid_to;
+TextView pay_status,pay_amount,paid_to,tv_txnid;
 final int UPI_PAYMENT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +38,17 @@ final int UPI_PAYMENT = 1;
         setContentView(R.layout.activity_upi__payment);
 
         Intent i = getIntent();
-        usermail = i.getStringExtra("email");
+        //usermail = i.getStringExtra("email");
+        usermail = Constants.Email;
+        System.out.println("UPI PAYMENT PAGE email----====---->>>"+usermail);
         amount = i.getStringExtra("Pay_Amount");
         doc_count = i.getStringExtra("doc_count");
         object=new JSONObject();
         pay_amount = findViewById(R.id.upi_amount);
         pay_status = findViewById(R.id.upi_status);
         paid_to = findViewById(R.id.upi_paidto);
-        System.out.println("UPI===>"+Constants.MERCHANT_UPI+"\nEMAIL====>"+usermail+"\nAMOUNT====>"+amount);
+        tv_txnid = findViewById(R.id.txnid);
+        //System.out.println("UPI===>"+Constants.MERCHANT_UPI+"\nEMAIL====>"+usermail+"\nAMOUNT====>"+amount);
         payUsingUPI(Constants.MERCHANT_UPI,amount,usermail);
 
 
@@ -56,42 +59,42 @@ final int UPI_PAYMENT = 1;
     {
         Uri uri = Uri.parse("upi://pay").buildUpon().appendQueryParameter("pa",upi)
                 .appendQueryParameter("pn","sushant")
-                .appendQueryParameter("tn","Paid by:"+usermail)
+                .appendQueryParameter("tn","Paid by:"+email)
                 .appendQueryParameter("am",amt)
                 .appendQueryParameter("cu","INR").build();
 
-        System.out.println("------>URI<------>"+uri);
+
 
         Intent upi_payment = new Intent(Intent.ACTION_VIEW);
         upi_payment.setData(uri);
         Intent chooser = Intent.createChooser(upi_payment,"Pay with");
         if(null!=chooser.resolveActivity(getPackageManager()))
         {
-            System.out.println("inside if11111111111111");
+
             startActivityForResult(chooser,UPI_PAYMENT);
 
         }else{
             Toast.makeText(UPI_Payment.this,"No upi app found",Toast.LENGTH_SHORT).show();
-            System.out.println("Erorrrrrrrrrrrrrrrrrrrrr---------1");
+
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        System.out.println("Resultcode=====>"+resultCode+"requestcode=======>"+requestCode);
-        System.out.println("Data--------->"+data+"--------------");
+        //System.out.println("Resultcode=====>"+resultCode+"requestcode=======>"+requestCode);
+        //System.out.println("Data--------->"+data+"--------------");
 
         switch (requestCode)
         {
             case UPI_PAYMENT :
-                System.out.println("----Resultcode=====>"+resultCode+"requestcode=======>"+requestCode);
+                //System.out.println("----Resultcode=====>"+resultCode+"requestcode=======>"+requestCode);
                 if(RESULT_OK == resultCode || requestCode==1)
                 {
                     if(data!=null)
                     {
-                        System.out.println("data------------------------>"+data);
+                       // System.out.println("data------------------------>"+data);
                         String text = data.getStringExtra("response");
-                        System.out.println("-----------text-------> "+text);
+                       // System.out.println("-----------text-------> "+text);
                         if(text.contains("Status=SUCCESS")){
                             try {
                                 object.put("code","1");
@@ -118,7 +121,7 @@ final int UPI_PAYMENT = 1;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        System.out.println("<----------------Return data is null---------->");
+                        //System.out.println("<----------------Return data is null---------->");
                         ArrayList<String> datalist = new ArrayList<>();
                         datalist.add("Nothing");
                         upipaymentDataoperation(datalist);
@@ -142,8 +145,9 @@ final int UPI_PAYMENT = 1;
             {
                 Toast.makeText(this,object.getString("0")+object.getString("1")+object.getString("2")+object.getString("3"),Toast.LENGTH_LONG).show();
                //System.out.println(object.getString("0")+object.getString("1")+object.getString("2")+object.getString("3"));
-                updatePaymentStatus();
                 sendDetailsToDB();
+                updatePaymentStatus();
+
             }
             else
             {
@@ -160,6 +164,12 @@ final int UPI_PAYMENT = 1;
         pay_status.setText("Payment\nSuccessful");
         pay_amount.setText("Paid : Rs. "+amount);
         paid_to.setText("Paid to : Tanishka Xerox Center\nPCCOER");
+        try {
+            tv_txnid.setText("Transaction id:"+object.getString("0"));
+        } catch (JSONException e) {
+                e.printStackTrace();
+        }
+
     }
 
     private void upipaymentDataoperation(ArrayList<String> data) {
@@ -168,24 +178,24 @@ final int UPI_PAYMENT = 1;
         if(isConnectionAvailable(UPI_Payment.this))
             {
                 String str = data.get(0);
-                System.out.println("-------->Str->---.->-_.->>>> "+str);
+                //System.out.println("-------->Str->---.->-_.->>>> "+str);
                 String paymentcancel="";
                 if(str==null || str.equals("Nothing"))
                 {
                     str="discard";
-                    System.out.println("Discarddddddddddddddddddddddddddddddd"+str);
+                    //System.out.println("Discarddddddddddddddddddddddddddddddd"+str);
                     Toast.makeText(this,"Error paying",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
 
                     String response[] = str.split("&");
-                    System.out.println("response///////////-------->"+response[1]);
+                    //System.out.println("response///////////-------->"+response[1]);
 
                     for(int i=0;i<response.length;i++)
                     {
                         String equalStr[] = response[i].split("=");
-                        System.out.println("------------equalStr------------>"+equalStr[1]);
+                        //System.out.println("------------equalStr------------>"+equalStr[1]);
                         try {
                             object.put(Integer.toString(i),equalStr[1]);
                         } catch (JSONException e) {
@@ -196,12 +206,12 @@ final int UPI_PAYMENT = 1;
                             if(equalStr[0].toLowerCase().equals("Status".toLowerCase()))
                             {
                                 status = equalStr[1].toLowerCase();
-                                System.out.println("Status1========== "+status);
+                                //System.out.println("Status1========== "+status);
                             }
                             else if(equalStr[0].toLowerCase().equals("Approval Ref.".toLowerCase()) || equalStr[0].toLowerCase().equals("TxnRef.".toLowerCase()))
                             {
                                 approvalref = equalStr[1];
-                                System.out.println("approvalref------------->"+approvalref);
+                                //System.out.println("approvalref------------->"+approvalref);
                             }
                         }
                         else
@@ -210,7 +220,7 @@ final int UPI_PAYMENT = 1;
                             if(status.equals("success"))
                             {
                                 Toast.makeText(UPI_Payment.this,"Transaction successful",Toast.LENGTH_SHORT).show();
-                                System.out.println("Status2========== "+status);
+                                //System.out.println("Status2========== "+status);
                             }
                             else if("Payment cancel by user".equals(paymentcancel))
                             {
@@ -223,7 +233,7 @@ final int UPI_PAYMENT = 1;
                         }
                     }
 
-                    System.out.println("JSON===>>"+object.toString());
+                    //System.out.println("JSON===>>"+object.toString());
 
                 }
                  }
@@ -277,7 +287,7 @@ final int UPI_PAYMENT = 1;
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Some error occurred...........................");
+                //System.out.println("Some error occurred...........................");
             }
         });
 

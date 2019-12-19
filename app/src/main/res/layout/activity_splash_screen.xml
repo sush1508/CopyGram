@@ -7,8 +7,7 @@
     tools:context=".SplashScreen"
     android:background="@drawable/splashscreen"
     android:theme="@style/AppTheme.NoActionBar"
-    android:id="@+id/splash">
-
-
+    android:id="@+id/splash"
+    android:fitsSystemWindows="true">
 
 </RelativeLayout>

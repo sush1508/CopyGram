@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,10 +31,8 @@ import org.json.JSONObject;
 
 
 public class Upload_Page extends Fragment {
-    Button upload_button;
-    TextView tvupload,instruction;
-    String f_useremail,f_filename,f_filetype;
-    String email,responsemsg;
+    String email;
+    private CardView ratesCard,ordersCard,uploadCard;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,32 +44,41 @@ public class Upload_Page extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        upload_button= view.findViewById(R.id.upload_button);
+        ratesCard = view.findViewById(R.id.rates_card);
+        ordersCard = view.findViewById(R.id.orders_card);
+        uploadCard = view.findViewById(R.id.upload_card);
 
         Intent i = getActivity().getIntent();
-        email=i.getStringExtra("EMAIL");
-
-        upload_button.setOnClickListener(new View.OnClickListener() {
+        //email=i.getStringExtra("EMAIL");
+        email=Constants.Email;
+        System.out.println("Upload page email----------=--------=------>"+email);
+        ratesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(),Documents.class);
-                i.putExtra("EMAIL",email);
+                Intent i = new Intent(getActivity(),Printing_rates.class);
                 startActivity(i);
-               // getActivity().overridePendingTransition(R.anim.anim_fadein,R.anim.anim_fadeout);
-
             }
         });
 
-        instruction = view.findViewById(R.id.tv_instructions);
-        instruction.setText("Instructions:\n" +
-                "Follow the below steps:\n\n" +
-                "(*)Click on the upload button below.\n\n" +
-                "(*)On the following page click on the '+' button and select file to upload.\n\n" +
-                "(supported file formats are : pdf,ppt,pptx,doc,docx,xls,txt)\n" +
-                "(*)After uploading click on the my files button to see a list of your files.\n\n" +
-                "(*)Click on each file name and fill in all the details(mandatory)\n\n" +
-                "(*)Proceed for payment using paytm.");
+        ordersCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle  data = new Bundle();
+                data.putString("email",email);
+                MyOrders_Page myOrders_page = new MyOrders_Page();
+                myOrders_page.setArguments(data);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,myOrders_page).addToBackStack(null).commit();
 
+            }
+        });
+        uploadCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent u = new Intent(getActivity(),Documents.class);
+                u.putExtra("EMAIL",email);
+                startActivity(u);
+            }
+        });
 
     }
 

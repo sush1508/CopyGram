@@ -9,9 +9,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -21,16 +29,22 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
     private DrawerLayout drawer;
     public String user_email;
     int file_count;
+    TextView nav_email_id;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_page);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Copygram");
 
         drawer = findViewById(R.id.drawer_layout);
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -45,8 +59,14 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
             navigationView.setCheckedItem(R.id.nav_upload);
         }
 
+
+
         Intent intent = getIntent();
-        user_email=intent.getStringExtra("EMAIL");
+        //user_email=intent.getStringExtra("EMAIL");
+        user_email=Constants.Email;
+        MainActivity.Email=user_email;
+        nav_email_id = navigationView.getHeaderView(0).findViewById(R.id.nav_email);
+        nav_email_id.setText(Constants.Email);
 
 
         //go to payment fragment if user has clicked proceed button in Documents activity
@@ -90,7 +110,7 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.nav_upload:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Upload_Page()).commit();
-
+                toolbar.setSubtitle("Upload");
                 break;
             case R.id.nav_myorders :
                 System.out.println("Email of user---------------- > "+user_email);
@@ -99,6 +119,7 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
                 MyOrders_Page myOrders_page = new MyOrders_Page();
                 myOrders_page.setArguments(data);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,myOrders_page).commit();
+                toolbar.setSubtitle("Orders");
                 break;
            /* case R.id.nav_payment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Payment_Page()).commit();
@@ -106,10 +127,15 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
             case R.id.nav_contact:
                 //Toast.makeText(this,"Contact",Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Contact_Page()).commit();
+                toolbar.setSubtitle("Contact");
                 break;
             case R.id.nav_about:
                 //Toast.makeText(this,"About",Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new About_Page()).commit();
+                toolbar.setSubtitle("About");
+                break;
+            case R.id.nav_logout:
+                logoutUser();
                 break;
         }
 
@@ -118,12 +144,38 @@ public class Dashboard_page extends AppCompatActivity implements NavigationView.
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        System.out.println(".............Help icon clicked..................."+item);
+        if(item.getItemId()==R.id.help_icon){
+            Intent i = new Intent(Dashboard_page.this,Help_page.class);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new Upload_Page()).commit();
+            //super.onBackPressed();
         }
-        super.onBackPressed();
+        toolbar.setSubtitle("");
+        //super.onBackPressed();
     }
+    public void logoutUser(){
+        new User(Dashboard_page.this).removeUser();
+        Intent u=new Intent(Dashboard_page.this,MainActivity.class);
+        startActivity(u);
+        finish();
+    }
+
 }

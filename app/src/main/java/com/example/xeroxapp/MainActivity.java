@@ -24,11 +24,9 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
     private EditText email_id, pass_id;
     private Button sign_button_id, reg_button_id;
-    private TextView forgot_pass;
-    private String Email, password;
+    public static String Email, password;
     private static final String KEY_EMPTY = "";
     private static final String KEY_STATUS = "status";
-    private static final String KEY_MESSAGE = "message";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     ProgressDialog dialog;
@@ -48,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setViews();
                 if (validateInputs()) {
+                    Constants.Email=Email;
+                    System.out.println("Constants Email===========>>>>"+Constants.Email);
                     login();
                 }
-                //Intent i =new Intent(MainActivity.this,Dashboard_page.class);
-                //startActivity(i);
-                //validateUser(Email,password);
+
             }
         });
 
@@ -61,14 +59,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Register_page.class);
                 startActivity(intent);
-            }
-        });
-
-        forgot_pass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, Dashboard_page.class);
-                startActivity(i);
             }
         });
 
@@ -86,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         reg_button_id = findViewById(R.id.main_register_button);
 
-        forgot_pass = findViewById(R.id.main_forgot_pass);
+
     }
 
 
@@ -132,13 +122,17 @@ public class MainActivity extends AppCompatActivity {
                                 //Check if user got logged in successfully
 
                                 if (response.getInt(KEY_STATUS) == 1) {
+                                    System.out.println("=========Breakpoint11-===================");
                                     //session.loginUser(Email, response.getString(KEY_FULL_NAME));
+                                    User user = new User(MainActivity.this);
+                                    user.setEmail(Email);
                                     Intent i = new Intent(MainActivity.this,Dashboard_page.class);
                                     i.putExtra("EMAIL",Email);
                                     startActivity(i);
                                    // overridePendingTransition(R.anim.anim_fadein,R.anim.anim_fadeout);
 
                                 } else {
+                                    System.out.println("=========Breakpoint12-===================");
                                     Toast.makeText(getApplicationContext(),
                                             response.getString("message"), Toast.LENGTH_SHORT).show();
 
@@ -152,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             dialog.dismiss();
-
+                            System.out.println("=========Breakpoint13-===================");
                             //Display error message whenever an error occurs
                             Toast.makeText(getApplicationContext(),
                                     "Error connecting", Toast.LENGTH_SHORT).show();

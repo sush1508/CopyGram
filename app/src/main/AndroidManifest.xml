@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UPI_Payment"
-            android:label="Payment"
-            android:theme="@style/AppTheme"/>
+        <activity android:name=".Printing_rates"></activity>
+        <activity android:name=".Help_page" />
         <activity
-            android:name=".Checksum"
-            android:label="Payment" />
+            android:name=".UPI_Payment"
+            android:label="Payment"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Documents"
             android:label="Documents" />
@@ -34,9 +34,6 @@
             android:label="Copygram"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Reset_password"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".Register_page"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -48,13 +45,13 @@
     <meta-data
         android:name="com.google.android.gms.wallet.api.enabled"
         android:value="true" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <dist:module dist:instant="true" />
 

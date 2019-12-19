@@ -70,6 +70,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
     Button file_btn,payment_btn;
     FloatingActionButton choose_btn;
     static String u_email;
+    static int x=0;
     String f_useremail,f_filename,f_filetype;
     String responsemsg;
     Vector v;
@@ -97,7 +98,10 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
 
         v = new Vector();
         Intent e = getIntent();
-        u_email = e.getStringExtra("EMAIL");
+        //u_email = e.getStringExtra("EMAIL");
+        u_email = Constants.Email;
+
+        fetchFileInfo();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -116,11 +120,11 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                 intent1.putExtra("orderAmount",totalAmount);
                 intent1.putExtra("doc_count",Itemcount);
                 intent1.putExtra("email",u_email);
-                System.out.println("Costtttttttttttttttttttttttttttttttt ======= >"+totalAmount);
-               // if(openConfirmationDialog()){
+
+
                     startActivity(intent1);
                     finish();
-              //  }
+
 
             }
         });
@@ -140,32 +144,13 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
             @Override
             public void onClick(View view) {
                 fetchFileInfo();
-                //v.clear();
+
             }
         });
 
     }
 
-   /* boolean openConfirmationDialog()
-    {
 
-        d = new Dialog(this);
-        d.setContentView(R.layout.file_list_card);
-        yes = d.findViewById(R.id.btn_yes);
-        no = d.findViewById(R.id.btn_no);
-        lv_doc_list = d.findViewById(R.id.id_doc);
-        final ArrayAdapter d_adapter = new ArrayAdapter(d.getContext(),R.layout.my_list_item,v);
-        lv_doc_list.setAdapter(d_adapter);
-
-        yes.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-               startActivity(intent1);
-                finish();
-            }
-        });
-        return true;
-    }*/
 
     private void enable_button() {
         payment_btn.setBackground(getDrawable(R.drawable.buttonshape));
@@ -220,7 +205,8 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                         System.out.println("Content typpppppeeeeeeeeeeee :"+content_type);
 
                         String filename = file_path.substring(file_path.lastIndexOf("/")+1);
-                        filename = u_email.substring(0,4)+"_"+filename;
+                        x++;
+                        filename = u_email.substring(0,4)+x+"_"+filename;
                         System.out.println("File name ::::::::::"+filename);
                         OkHttpClient client = new OkHttpClient();
                         RequestBody file_body;
@@ -308,6 +294,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
                         else
                         {
                             System.out.println("Message : " +responsemsg);
+                            Toast.makeText(Documents.this,responsemsg,Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -317,7 +304,7 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
 
                     System.out.println(v);
                 }
-                Toast.makeText(Documents.this,responsemsg,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Documents.this,responsemsg,Toast.LENGTH_SHORT).show();
                 removeDuplicates(v);
 
 
@@ -411,10 +398,5 @@ public class Documents extends AppCompatActivity implements FileInfoDialog.FileI
         return true;
     }
 
-/*
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.anim_fadein,R.anim.anim_fadeout);
-    }*/
+
 }

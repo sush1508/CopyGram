@@ -31,7 +31,7 @@
         android:text="Amount"
         android:textColor="#FCF8F5F5"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/cs_status"
+        app:layout_constraintBottom_toTopOf="@+id/upi_status"
         app:layout_constraintEnd_toEndOf="@+id/bgcard"
         app:layout_constraintStart_toStartOf="@+id/bgcard"
         app:layout_constraintTop_toTopOf="@+id/bgcard"
@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bgcard"
         app:layout_constraintEnd_toEndOf="@+id/bgcard"
         app:layout_constraintStart_toStartOf="@+id/bgcard"
-        app:layout_constraintTop_toBottomOf="@+id/cs_status" />
+        app:layout_constraintTop_toBottomOf="@+id/upi_status" />
 
     <TextView
         android:id="@+id/upi_status"
@@ -65,15 +65,17 @@
         app:layout_constraintEnd_toEndOf="@+id/bgcard"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/bgcard"
-        app:layout_constraintTop_toBottomOf="@+id/cs_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/upi_amount" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/txnid"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:text="Transaction id : ---"
         android:textColor="@color/cardview_light_background"
         android:textSize="20dp"
+        android:gravity="center"
+        android:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="@id/bgcard"
         app:layout_constraintStart_toStartOf="@id/bgcard"
         app:layout_constraintTop_toBottomOf="@id/upi_paidto"

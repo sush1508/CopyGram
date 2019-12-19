@@ -115,16 +115,19 @@ public class Register_page extends AppCompatActivity {
                                     dialog.dismiss();
                                     try {
                                         if (response.getInt("status") == 1) {
+                                            System.out.println("=========Breakpoint1-===================");
                                             Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_SHORT).show();
                                             Intent i = new Intent(Register_page.this,MainActivity.class);
                                             startActivity(i);
-
+                                            System.out.println("=========Breakpoint2-===================");
                                         } else {
+                                            System.out.println("=========Breakpoint3-===================");
                                             Toast.makeText(getApplicationContext(),
                                                     response.getString("message"), Toast.LENGTH_SHORT).show();
 
                                         }
                                     } catch (JSONException e) {
+                                        System.out.println("=========Breakpoint4-===================");
                                         e.printStackTrace();
                                     }
                                 }
@@ -133,10 +136,10 @@ public class Register_page extends AppCompatActivity {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     dialog.dismiss();
-
+                                    System.out.println("=========Breakpoint5-===================");
                                     //Display error message whenever an error occurs
                                     Toast.makeText(getApplicationContext(),
-                                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                                            "Error connecting", Toast.LENGTH_SHORT).show();
 
                                 }
                             });
@@ -215,6 +218,12 @@ public class Register_page extends AppCompatActivity {
         if(email.length()<4)
         {
             user_email_id.setError("Email invalid");
+            user_email_id.requestFocus();
+            return false;
+        }
+        if(!(email.contains("@") && email.contains(".")))
+        {
+            user_email_id.setError("Enter correct Email");
             user_email_id.requestFocus();
             return false;
         }

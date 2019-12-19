@@ -42,8 +42,9 @@ public class Payment_Page extends Fragment {
         orderamt = 0;
         orderamt = getArguments().getInt("OrderAmt");
         doc_count = getArguments().getInt("file_count");
-        mail = getArguments().getString("email");
-        System.out.println("Paymentpage.................>>>>>>>>>> "+orderamt);
+       // mail = getArguments().getString("email");
+        mail = Constants.Email;
+        System.out.println("Paymentpage.................>>>>>>>>>> "+orderamt+"    email   "+mail);
         paybtn = view.findViewById(R.id.Pay_button);
         tvamount = view.findViewById(R.id.tv_rs);
         tvdocs = view.findViewById(R.id.tv_docs);
@@ -56,13 +57,14 @@ public class Payment_Page extends Fragment {
         paybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(getActivity(),Checksum.class);
+
                 Intent i = new Intent(getActivity(),UPI_Payment.class);
                 i.putExtra("Pay_Amount",Integer.toString(orderamt));
                 i.putExtra("email",mail);
                 i.putExtra("doc_count",Integer.toString(doc_count));
                 System.out.println("Pay button clicked.........");
                 startActivity(i);
+
             }
         });
 

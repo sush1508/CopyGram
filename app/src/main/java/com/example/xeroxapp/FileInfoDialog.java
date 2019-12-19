@@ -40,7 +40,7 @@ public class FileInfoDialog extends AppCompatDialogFragment {
     String print_sides,print_color,print_pages,print_copies;
     String u_email="",docname="";
     private FileInfoDialogListener listener;
-    ImageView filldetails;
+    //ImageView filldetails;
 
 
 
@@ -56,10 +56,6 @@ public class FileInfoDialog extends AppCompatDialogFragment {
         rg1 = view.findViewById(R.id.radiogrp1);
         rg2 = view.findViewById(R.id.radiogrp2);
 
-
-        /*Bundle bundle = savedInstanceState;
-        bundle.putString("Filename",textViewtitle.getText().toString());*/
-        //final AlertDialog dialog=builder.create();
 
         builder.setView(view)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

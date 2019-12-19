@@ -15,4 +15,20 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         app:srcCompat="@drawable/copygram2" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="8dp"/>
+    <TextView
+        android:id="@+id/nav_email"
+        android:layout_width="135dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="5dp"
+        android:paddingTop="2dp"
+        android:text="Your email id"
+        android:textAlignment="textStart"
+        android:textColor="#00BCD4"
+        android:textStyle="bold" />
 </LinearLayout>
